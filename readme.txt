@@ -4,7 +4,7 @@ Tags: seo, ai, meta description, meta title, search engine optimization
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,14 @@ If you are running a public website, we recommend adding a note to your WordPres
 
 == Changelog ==
 
+= 1.1.0 =
+* Search result (SERP) preview in the post editor
+* Live character counters with warning colors for title and description
+* Additional AI models: Llama 3.1 70B, OpenAI GPT-OSS 120B, Llama 4 Maverick 17B
+* Automatic data migration from the previous `simbe-ai-seo` plugin name
+* Settings shortcut on the Plugins screen
+* Dismissible admin notice when the API key is missing
+
 = 1.0.0 =
 * Initial release
 * AI-powered meta title and description generation via Groq API
@@ -108,6 +116,9 @@ If you are running a public website, we recommend adding a note to your WordPres
 * Custom post type support
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds SERP preview, live character counters, new AI models, and automatic data migration from version 1.0.0.
 
 = 1.0.0 =
 Initial release.
