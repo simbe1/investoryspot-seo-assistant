@@ -101,6 +101,61 @@
     margin-top: 4px;
 }
 
+.investoryspot-seo-counter.count-warning {
+    color: #b8860b;
+    font-weight: 600;
+}
+
+.investoryspot-seo-counter.count-danger {
+    color: #dc3232;
+    font-weight: 700;
+}
+
+/* SERP Preview */
+.investoryspot-serp-preview {
+    margin: 16px 0;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+.investoryspot-serp-preview h4 {
+    margin: 0 0 10px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #888;
+}
+
+.investoryspot-serp-item {
+    max-width: 600px;
+}
+
+.investoryspot-serp-url {
+    font-size: 13px;
+    color: #202124;
+    line-height: 1.4;
+}
+
+.investoryspot-serp-title {
+    font-size: 18px;
+    color: #1a0dab;
+    line-height: 1.3;
+    word-wrap: break-word;
+    cursor: pointer;
+}
+
+.investoryspot-serp-title:hover {
+    text-decoration: underline;
+}
+
+.investoryspot-serp-desc {
+    font-size: 13px;
+    color: #4d5156;
+    line-height: 1.58;
+    word-wrap: break-word;
+}
+
 .investoryspot-seo-actions {
     display: flex;
     align-items: center;
