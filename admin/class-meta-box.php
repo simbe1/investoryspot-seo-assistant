@@ -100,6 +100,17 @@ class InvestorySpot_SEO_Meta_Box {
                     <div class="investoryspot-seo-counter"><span id="desc-count"><?php echo esc_html(strlen($description)); ?></span>/160</div>
                 </div>
 
+                <div class="investoryspot-serp-preview">
+                    <h4>Search Result Preview</h4>
+                    <div class="investoryspot-serp-item" id="investoryspot-serp-item"
+                         data-fallback-title="<?php echo esc_attr($post->post_title); ?>"
+                         data-post-id="<?php echo esc_attr($post->ID); ?>">
+                        <div class="investoryspot-serp-url" id="investoryspot-serp-url"><?php echo esc_html(wp_parse_url(get_permalink($post), PHP_URL_HOST)); ?></div>
+                        <div class="investoryspot-serp-title" id="investoryspot-serp-title"><?php echo esc_html($title ? $title : $post->post_title); ?></div>
+                        <div class="investoryspot-serp-desc" id="investoryspot-serp-desc"><?php echo esc_html($description); ?></div>
+                    </div>
+                </div>
+
                 <div class="investoryspot-seo-actions">
                     <button type="button" class="button button-primary investoryspot-generate-all-btn" <?php echo $api_ok ? '' : 'disabled'; ?>
                             data-post-id="<?php echo esc_attr($post->ID); ?>">
