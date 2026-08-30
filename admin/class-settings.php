@@ -6,6 +6,14 @@ class InvestorySpot_SEO_Settings {
     public function __construct() {
         add_action('admin_menu', array($this, 'add_settings_page'));
         add_action('admin_init', array($this, 'register_settings'));
+        add_filter('plugin_action_links_' . plugin_basename(dirname(__DIR__) . '/investoryspot-seo-assistant.php'), array($this, 'add_action_links'));
+    }
+
+    public function add_action_links($links) {
+        $url = admin_url('options-general.php?page=investoryspot-seo-assistant');
+        $settings_link = '<a href="' . esc_url($url) . '">' . esc_html__('Settings', 'investoryspot-seo-assistant') . '</a>';
+        array_unshift($links, $settings_link);
+        return $links;
     }
 
     public function add_settings_page() {
@@ -13,7 +21,7 @@ class InvestorySpot_SEO_Settings {
             'InvestorySpot SEO Assistant Settings',
             'InvestorySpot SEO Assistant',
             'manage_options',
-             'investoryspot-seo-assistant',
+            'investoryspot-seo-assistant',
             array($this, 'render_settings_page')
         );
     }
@@ -76,10 +84,13 @@ class InvestorySpot_SEO_Settings {
     public function model_field() {
         $model = get_option('investoryspot_seo_model', 'llama-3.3-70b-versatile');
         $models = array(
-            'llama-3.3-70b-versatile'   => 'Llama 3.3 70B (Recommended)',
-            'llama-3.1-8b-instant'      => 'Llama 3.1 8B (Fast)',
-            'mixtral-8x7b-32768'        => 'Mixtral 8x7B',
-            'gemma2-9b-it'              => 'Gemma 2 9B',
+            'llama-3.3-70b-versatile'                 => 'Llama 3.3 70B (Recommended)',
+            'llama-3.1-8b-instant'                    => 'Llama 3.1 8B (Fast)',
+            'llama-3.1-70b-versatile'                 => 'Llama 3.1 70B',
+            'openai/gpt-oss-120b'                     => 'OpenAI GPT-OSS 120B',
+            'meta-llama/llama-4-maverick-17b-128e'    => 'Llama 4 Maverick 17B',
+            'mixtral-8x7b-32768'                      => 'Mixtral 8x7B',
+            'gemma2-9b-it'                            => 'Gemma 2 9B',
         );
         echo '<select name="investoryspot_seo_model">';
         foreach ($models as $val => $label) {
@@ -105,7 +116,15 @@ class InvestorySpot_SEO_Settings {
     }
 
     public function sanitize_model($input) {
-        $allowed = array('llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768', 'gemma2-9b-it');
+        $allowed = array(
+            'llama-3.3-70b-versatile',
+            'llama-3.1-8b-instant',
+            'llama-3.1-70b-versatile',
+            'openai/gpt-oss-120b',
+            'meta-llama/llama-4-maverick-17b-128e',
+            'mixtral-8x7b-32768',
+            'gemma2-9b-it',
+        );
         if (in_array($input, $allowed, true)) {
             return $input;
         }
