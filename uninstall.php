@@ -6,6 +6,7 @@ $investoryspot_seo_options = array(
     'investoryspot_seo_model',
     'investoryspot_seo_auto_generate',
     'investoryspot_seo_post_types',
+    'investoryspot_seo_version',
 );
 
 foreach ($investoryspot_seo_options as $investoryspot_seo_option) {
