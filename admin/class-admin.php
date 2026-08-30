@@ -14,6 +14,9 @@ class InvestorySpot_SEO_Admin {
         add_action('admin_init', array($this, 'add_list_columns'));
         add_action('pre_get_posts', array($this, 'sort_by_score'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_list_styles'));
+
+        add_action('admin_notices', array($this, 'api_key_notice'));
+        add_action('admin_post_investoryspot_dismiss_notice', array($this, 'dismiss_api_key_notice'));
     }
 
     public function add_list_columns() {
@@ -311,5 +314,48 @@ class InvestorySpot_SEO_Admin {
         if (!current_user_can('edit_posts')) {
             wp_send_json_error('Unauthorized');
         }
+    }
+
+    public function api_key_notice() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        $screen = get_current_screen();
+        if ($screen && in_array($screen->id, array('toplevel_page_investoryspot-seo-assistant-dashboard', 'settings_page_investoryspot-seo-assistant'), true)) {
+            return;
+        }
+
+        if (get_user_meta(get_current_user_id(), 'investoryspot_seo_notice_dismissed', true)) {
+            return;
+        }
+
+        $ai = new InvestorySpot_SEO_AI();
+        if ($ai->is_configured()) {
+            return;
+        }
+
+        $dismiss_url = wp_nonce_url(
+            admin_url('admin-post.php?action=investoryspot_dismiss_notice'),
+            'investoryspot_dismiss_notice'
+        );
+        $settings_url = admin_url('options-general.php?page=investoryspot-seo-assistant');
+
+        echo '<div class="notice notice-warning is-dismissible">';
+        echo '<p><strong>InvestorySpot SEO Assistant:</strong> ';
+        echo esc_html__('Add your Groq API key to enable AI-powered SEO features.', 'investoryspot-seo-assistant');
+        echo ' <a href="' . esc_url($settings_url) . '">' . esc_html__('Go to Settings', 'investoryspot-seo-assistant') . '</a>';
+        echo ' | <a href="' . esc_url($dismiss_url) . '">' . esc_html__('Dismiss', 'investoryspot-seo-assistant') . '</a></p>';
+        echo '</div>';
+    }
+
+    public function dismiss_api_key_notice() {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('Unauthorized', 'investoryspot-seo-assistant'));
+        }
+        check_admin_referer('investoryspot_dismiss_notice');
+        update_user_meta(get_current_user_id(), 'investoryspot_seo_notice_dismissed', '1');
+        wp_safe_redirect(wp_get_referer() ? wp_get_referer() : admin_url());
+        exit;
     }
 }
