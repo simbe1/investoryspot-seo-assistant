@@ -3,7 +3,7 @@
  * Plugin Name:       InvestorySpot SEO Assistant
  * Plugin URI:        https://investoryspot.com/plugins
  * Description:       AI-powered SEO plugin using Groq API. Generate meta titles, descriptions, and get SEO analysis with one click.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.0
  * Requires PHP:      7.2
  * Author:            simbe1
@@ -16,7 +16,7 @@
 
 defined('ABSPATH') || exit;
 
-define('INVESTORYSPOT_SEO_VERSION', '1.0.0');
+define('INVESTORYSPOT_SEO_VERSION', '1.1.0');
 define('INVESTORYSPOT_SEO_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('INVESTORYSPOT_SEO_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -31,6 +31,7 @@ function investoryspot_seo_init() {
     new InvestorySpot_SEO_Admin();
     new InvestorySpot_SEO_Settings();
     new InvestorySpot_SEO_Meta_Box();
+    InvestorySpot_SEO_Activator::maybe_upgrade();
 }
 add_action('plugins_loaded', 'investoryspot_seo_init');
 
